@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   s.name         = "JWPlayerTVKit"
   s.version      = "1.0.0"
-  s.summary      = "JWPlayerTVKit for tvOS.  SDKs page: https://www.jwplayer.com/mobile-sdk"
+  s.summary      = "JWPlayerTVKit for tvOS. SDKs page: https://www.jwplayer.com/mobile-sdk"
 
   s.homepage     = "https://www.jwplayer.com/mobile-sdk/"
   s.license      = { :type => "Commercial", :file => "LICENSE.md" }
@@ -11,9 +11,9 @@ Pod::Spec.new do |s|
 
   s.platform     = :tvos, "14.0"
   s.documentation_url = "https://docs.jwplayer.com/players/docs/ios-get-started"
-  s.source       = { :git => "https://github.com/jwplayer/JWPlayerTVKit-cocoapod.git", :tag => s.version.to_s }
+  s.source       = { :git => "git@github.com:jwplayer/JWPlayerTVKit-cocoapod.git", :tag => s.version.to_s }
 
-  s.ios.vendored_frameworks = "JWPlayerTVKit.xcframework"
+  s.tvos.vendored_frameworks = "JWPlayerTVKit.xcframework"
 
   s.social_media_url = 'https://www.facebook.com/jwplayer/'
   s.social_media_url = 'https://twitter.com/jwplayer'
