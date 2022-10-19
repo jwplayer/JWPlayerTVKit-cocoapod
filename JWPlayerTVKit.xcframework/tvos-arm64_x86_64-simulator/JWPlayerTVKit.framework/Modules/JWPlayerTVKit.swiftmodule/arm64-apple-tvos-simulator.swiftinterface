@@ -1,0 +1,1622 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)
+// swift-module-flags: -target arm64-apple-tvos14.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name JWPlayerTVKit
+import AVFoundation
+import AVKit
+import AVFoundation.AVTimedMetadataGroup
+import CoreGraphics.CGBase
+import CoreGraphics.CGGeometry
+import CoreGraphics
+import CoreMedia
+import Foundation
+@_exported import JWPlayerTVKit
+import JavaScriptCore
+import MediaAccessibility
+import MediaPlayer
+import Swift
+import SystemConfiguration
+import TVUIKit
+import UIKit.UIAccessibility
+import UIKit.UIColor
+import UIKit
+
+import libxml2
+import os.log
+import os
+public let sdkVersion: Swift.String
+@objc public enum JWPlayerState : Swift.Int {
+  case unknown
+  case idle
+  case buffering
+  case playing
+  case paused
+  case complete
+  case error
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum JWMediaType : Swift.Int {
+  case unknown
+  case audio
+  case video
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum JWTrackType : Swift.Int {
+  case undefined = -1
+  case audio
+  case closedCaption
+  case subtitle
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public let JWMediaSelectionOptionDefault: Swift.Int
+@objc @_hasMissingDesignatedInitializers @objcMembers public class JWTimeData : ObjectiveC.NSObject {
+  @objc public var position: Foundation.TimeInterval
+  @objc public var duration: Foundation.TimeInterval
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class JWTimeRange : ObjectiveC.NSObject {
+  @objc final public let start: Foundation.TimeInterval
+  @objc final public let end: Foundation.TimeInterval
+  public static func == (lhs: JWPlayerTVKit.JWTimeRange, rhs: JWPlayerTVKit.JWTimeRange) -> Swift.Bool
+  @objc override dynamic public var hash: Swift.Int {
+    @objc get
+  }
+  @objc public init(start: Foundation.TimeInterval, end: Foundation.TimeInterval)
+  @objc deinit
+}
+@objc public enum JWLabelType : Swift.Int {
+  case title
+  case subtitle
+  case collectionItemTitle
+  case collectionItemSubtitle
+  case nextUpCountdown
+  case menuTitle
+  case menuItem
+  case position
+  case remainingTime
+  case playbackRate
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum JWButtonType : Swift.Int {
+  case caption
+  case audio
+  case pictureInPicture
+  case tabItem
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum JWViewType : Swift.Int {
+  case infoCard
+  case nextUpCard
+  case menu
+  case tabBar
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @objcMembers final public class JWJSONParser : ObjectiveC.NSObject {
+  @objc public static func configFromUrl(_ url: Foundation.URL) throws -> JWPlayerTVKit.JWPlayerConfiguration
+  @objc public static func configFromJSON(_ jsonData: Foundation.Data) throws -> JWPlayerTVKit.JWPlayerConfiguration
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class JWID3Metadata : ObjectiveC.NSObject {
+  @objc final public let start: Swift.Double
+  @objc final public let metadata: [Swift.String : Swift.AnyObject]!
+  @objc deinit
+}
+@objc public protocol JWID3MetadataDelegate {
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, id3Metadata metadata: JWPlayerTVKit.JWID3Metadata)
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class JWPlayerItem : ObjectiveC.NSObject {
+  @objc public var title: Swift.String? {
+    get
+  }
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc public var posterImage: Foundation.URL? {
+    get
+  }
+  @objc public var startTime: Swift.Double {
+    get
+  }
+  @objc public var mediaId: Swift.String? {
+    get
+  }
+  @objc public var recommendations: Foundation.URL? {
+    get
+  }
+  @objc @available(*, deprecated, message: "Instead read from JWPlayerConfiguration.autostart")
+  public var autostart: Swift.Bool {
+    get
+  }
+  @objc public var videoSources: [JWPlayerTVKit.JWVideoSource]! {
+    get
+  }
+  @objc public var mediaTracks: [JWPlayerTVKit.JWMediaTrack]? {
+    get
+  }
+  @objc public var vmapURL: Foundation.URL? {
+    get
+  }
+  @objc public var adSchedule: [JWPlayerTVKit.JWAdBreak]? {
+    get
+  }
+  @objc public var googleDAIStream: JWPlayerTVKit.JWGoogleDAIStream? {
+    get
+  }
+  @objc public var assetOptions: [Swift.String : Any]? {
+    get
+  }
+  @objc public var externalMetadata: [JWPlayerTVKit.JWExternalMetadata]? {
+    get
+  }
+  @objc @available(tvOS 14, *)
+  @available(iOS, unavailable)
+  public var skippableTimeRanges: [JWPlayerTVKit.JWSkippableTimeRange] {
+    get
+  }
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWPlayerItemBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWPlayerItem
+  @objc public func build() throws -> JWPlayerTVKit.JWPlayerItem
+  @objc @discardableResult
+  public func file(_ file: Foundation.URL) -> JWPlayerTVKit.JWPlayerItemBuilder
+  @objc @discardableResult
+  public func title(_ title: Swift.String) -> JWPlayerTVKit.JWPlayerItemBuilder
+  @objc @discardableResult
+  public func description(_ description: Swift.String) -> JWPlayerTVKit.JWPlayerItemBuilder
+  @objc @discardableResult
+  public func posterImage(_ posterImage: Foundation.URL) -> JWPlayerTVKit.JWPlayerItemBuilder
+  @objc @discardableResult
+  public func startTime(_ startTime: Foundation.TimeInterval) -> JWPlayerTVKit.JWPlayerItemBuilder
+  @objc @discardableResult
+  public func mediaId(_ mediaId: Swift.String) -> JWPlayerTVKit.JWPlayerItemBuilder
+  @objc @discardableResult
+  public func recommendations(_ recommendations: Foundation.URL) -> JWPlayerTVKit.JWPlayerItemBuilder
+  @objc @discardableResult
+  @available(*, deprecated, message: "Instead use JWPlayerConfigurationBuilder.autostart")
+  public func autostart(_ autostart: Swift.Bool) -> JWPlayerTVKit.JWPlayerItemBuilder
+  @objc @discardableResult
+  public func videoSources(_ videoSources: [JWPlayerTVKit.JWVideoSource]) -> JWPlayerTVKit.JWPlayerItemBuilder
+  @objc @discardableResult
+  public func mediaTracks(_ mediaTracks: [JWPlayerTVKit.JWMediaTrack]) -> JWPlayerTVKit.JWPlayerItemBuilder
+  @objc @discardableResult
+  public func adSchedule(vmapURL: Foundation.URL) -> JWPlayerTVKit.JWPlayerItemBuilder
+  @objc @discardableResult
+  public func adSchedule(breaks: [JWPlayerTVKit.JWAdBreak]) -> JWPlayerTVKit.JWPlayerItemBuilder
+  @objc @discardableResult
+  public func assetOptions(_ assetOptions: [Swift.String : Any]) -> JWPlayerTVKit.JWPlayerItemBuilder
+  @objc @discardableResult
+  public func googleDAIStream(_ googleDAIStream: JWPlayerTVKit.JWGoogleDAIStream) -> JWPlayerTVKit.JWPlayerItemBuilder
+  @objc @discardableResult
+  public func externalMetadata(_ externalMetadata: [JWPlayerTVKit.JWExternalMetadata]) -> JWPlayerTVKit.JWPlayerItemBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension JWPlayerTVKit.JWPlayerItemBuilder {
+  @objc @available(tvOS 14, *)
+  @available(iOS, unavailable)
+  @discardableResult
+  dynamic public func skippableTimeRanges(_ timeRanges: [JWPlayerTVKit.JWSkippableTimeRange]) -> JWPlayerTVKit.JWPlayerItemBuilder
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class JWMetadataDelegates : ObjectiveC.NSObject {
+  @objc weak public var accessLogMetadataDelegate: JWPlayerTVKit.JWAccessLogMetadataDelegate? {
+    @objc get
+    @objc set
+  }
+  @objc weak public var dateRangeMetadataDelegate: JWPlayerTVKit.JWDateRangeMetadataDelegate? {
+    @objc get
+    @objc set
+  }
+  @objc weak public var id3MetadataDelegate: JWPlayerTVKit.JWID3MetadataDelegate? {
+    @objc get
+    @objc set
+  }
+  @objc weak public var externalMetadataDelegate: JWPlayerTVKit.JWExternalMetadataDelegate? {
+    @objc get
+    @objc set
+  }
+  @objc weak public var programDateTimeMetadataDelegate: JWPlayerTVKit.JWProgramDateTimeMetadataDelegate? {
+    @objc get
+    @objc set
+  }
+  @objc weak public var mediaMetadataDelegate: JWPlayerTVKit.JWMediaMetadataDelegate? {
+    @objc get
+    @objc set
+  }
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @available(tvOS 14, *)
+@available(iOS, unavailable)
+@objcMembers public class JWSkippableTimeRange : ObjectiveC.NSObject {
+  @objc final public let buttonDisplayTime: JWPlayerTVKit.JWTimeRange
+  @objc final public let seekToTime: Foundation.TimeInterval
+  @objc final public let buttonText: Swift.String
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @available(tvOS 14, *)
+@available(iOS, unavailable)
+@objcMembers public class JWSkippableTimeRangeBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWSkippableTimeRange
+  @objc public func build() throws -> JWPlayerTVKit.JWSkippableTimeRange
+  @objc @discardableResult
+  public func buttonDisplayTime(_ timeRange: JWPlayerTVKit.JWTimeRange) -> JWPlayerTVKit.JWSkippableTimeRangeBuilder
+  @objc @discardableResult
+  public func seekTo(time seconds: Foundation.TimeInterval) -> JWPlayerTVKit.JWSkippableTimeRangeBuilder
+  @objc @discardableResult
+  public func buttonText(_ text: Swift.String) -> JWPlayerTVKit.JWSkippableTimeRangeBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol JWDateRangeMetadataDelegate {
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, dateRangeMetadataCueParsed metadata: JWPlayerTVKit.JWDateRangeMetadata)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, dateRangeMetadata metadata: JWPlayerTVKit.JWDateRangeMetadata)
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers public class JWDateRangeMetadata : ObjectiveC.NSObject {
+  @objc final public let attributes: [[Swift.String : Swift.AnyObject]]!
+  @objc final public let duration: Foundation.TimeInterval
+  @objc final public let start: Foundation.TimeInterval
+  @objc final public let end: Foundation.TimeInterval
+  @objc final public let startDate: Foundation.Date!
+  @objc final public let endDate: Foundation.Date?
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWImaAdvertisingConfigBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWAdvertisingConfig
+  @objc public func build() throws -> JWPlayerTVKit.JWAdvertisingConfig
+  @objc @discardableResult
+  public func vmapURL(_ vmapURL: Foundation.URL) -> JWPlayerTVKit.JWImaAdvertisingConfigBuilder
+  @objc @discardableResult
+  public func schedule(_ schedule: [JWPlayerTVKit.JWAdBreak]) -> JWPlayerTVKit.JWImaAdvertisingConfigBuilder
+  @discardableResult
+  @objc public func tag(_ tag: Foundation.URL) -> JWPlayerTVKit.JWImaAdvertisingConfigBuilder
+  @objc @discardableResult
+  public func adRules(_ adRules: JWPlayerTVKit.JWAdRules) -> JWPlayerTVKit.JWImaAdvertisingConfigBuilder
+  @objc @discardableResult
+  public func friendlyObstructionsContainer(_ container: JWPlayerTVKit.JWFriendlyObstructionsContainer) -> JWPlayerTVKit.JWImaAdvertisingConfigBuilder
+  @objc @discardableResult
+  public func imaSettings(_ imaSettings: JWPlayerTVKit.JWImaSettings) -> JWPlayerTVKit.JWImaAdvertisingConfigBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class JWRelatedContentConfiguration : ObjectiveC.NSObject {
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWRelatedContentConfigurationBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWRelatedContentConfiguration
+  @objc public func build() -> JWPlayerTVKit.JWRelatedContentConfiguration
+  @objc @discardableResult
+  public func url(_ url: Foundation.URL) -> JWPlayerTVKit.JWRelatedContentConfigurationBuilder
+  @objc @discardableResult
+  public func heading(_ heading: Swift.String) -> JWPlayerTVKit.JWRelatedContentConfigurationBuilder
+  @objc @discardableResult
+  public func autoplayMessage(_ message: Swift.String) -> JWPlayerTVKit.JWRelatedContentConfigurationBuilder
+  @objc @discardableResult
+  public func onComplete(_ relatedOnComplete: JWPlayerTVKit.JWRelatedOnComplete) -> JWPlayerTVKit.JWRelatedContentConfigurationBuilder
+  @objc @discardableResult
+  public func onClick(_ relatedOnClick: JWPlayerTVKit.JWRelatedOnClick) -> JWPlayerTVKit.JWRelatedContentConfigurationBuilder
+  @objc @discardableResult
+  public func autoplayTimer(_ timer: Swift.Int) -> JWPlayerTVKit.JWRelatedContentConfigurationBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum JWFriendlyObstructionPurpose : Swift.Int {
+  case mediaControls
+  case closeAd
+  case notVisible
+  case other
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @objcMembers public class JWFriendlyObstruction : ObjectiveC.NSObject {
+  @objc required public init(view: UIKit.UIView, purpose: JWPlayerTVKit.JWFriendlyObstructionPurpose, reason: Swift.String? = nil)
+  public static func == (lhs: JWPlayerTVKit.JWFriendlyObstruction, rhs: JWPlayerTVKit.JWFriendlyObstruction) -> Swift.Bool
+  @objc deinit
+}
+@objc public protocol JWDRMContentKeyDataSource {
+  @objc func contentIdentifierForURL(_ url: Foundation.URL, completionHandler handler: @escaping (_ contentIdentifier: Foundation.Data?) -> Swift.Void)
+  @objc func appIdentifierForURL(_ url: Foundation.URL, completionHandler handler: @escaping (_ appIdentifier: Foundation.Data?) -> Swift.Void)
+  @objc func contentKeyWithSPCData(_ spcData: Foundation.Data, completionHandler handler: @escaping (_ ckcData: Foundation.Data?, _ renewalDate: Foundation.Date?, _ contentType: Swift.String?) -> Swift.Void)
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class JWMenuStyle : ObjectiveC.NSObject {
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWMenuStyleBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWMenuStyle
+  @objc public func build() throws -> JWPlayerTVKit.JWMenuStyle
+  @objc @discardableResult
+  public func fontColor(_ fontColor: UIKit.UIColor) -> JWPlayerTVKit.JWMenuStyleBuilder
+  @objc @discardableResult
+  public func font(_ font: UIKit.UIFont) -> JWPlayerTVKit.JWMenuStyleBuilder
+  @objc @discardableResult
+  public func backgroundColor(_ backgroundColor: UIKit.UIColor) -> JWPlayerTVKit.JWMenuStyleBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @objcMembers public class JWFriendlyObstructionsContainer : ObjectiveC.NSObject {
+  @objc required public init(obstructions: [JWPlayerTVKit.JWFriendlyObstruction]? = nil)
+  @objc deinit
+  @objc public func register(obstructions: [JWPlayerTVKit.JWFriendlyObstruction])
+  @objc public func unregister(obstructions: [JWPlayerTVKit.JWFriendlyObstruction])
+  @objc public func unregisterAllObstructions()
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class JWMediaMetadata : ObjectiveC.NSObject {
+  @objc final public let duration: Foundation.TimeInterval
+  @objc final public let height: Swift.Double
+  @objc final public let width: Swift.Double
+  @objc final public let frameRate: Swift.Double
+  @objc final public let seekRange: JWPlayerTVKit.JWTimeRange
+  @objc public var drmEncryption: JWPlayerTVKit.JWDRMEncryption {
+    get
+  }
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public enum JWDRMEncryption : Swift.Int {
+  case none
+  case fairplay
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol JWMediaMetadataDelegate {
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, didReceiveMediaMetadata metadata: JWPlayerTVKit.JWMediaMetadata)
+}
+@objc @objcMembers public class JWCueTime : ObjectiveC.NSObject {
+  @objc public var seconds: Foundation.TimeInterval {
+    @objc get
+  }
+  @objc public var percentage: Swift.Double {
+    @objc get
+  }
+  @objc public init?(seconds: Foundation.TimeInterval)
+  @objc public init?(percentage: Swift.Double)
+  @objc public init?(percentageString: Swift.String)
+  @objc public static func seconds(_ seconds: Foundation.TimeInterval) -> JWPlayerTVKit.JWCueTime?
+  @objc public static func percentage(_ percentage: Swift.Double) -> JWPlayerTVKit.JWCueTime?
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  public static func == (lhs: JWPlayerTVKit.JWCueTime, rhs: JWPlayerTVKit.JWCueTime) -> Swift.Bool
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class JWCue : ObjectiveC.NSObject, Swift.Codable {
+  @objc final public let begin: JWPlayerTVKit.JWCueTime
+  @objc final public let end: JWPlayerTVKit.JWCueTime?
+  @objc final public let text: Swift.String
+  public static func == (lhs: JWPlayerTVKit.JWCue, rhs: JWPlayerTVKit.JWCue) -> Swift.Bool
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  required public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class JWMediaSelectionOption : ObjectiveC.NSObject {
+  @objc public var name: Swift.String {
+    get
+  }
+  @objc public var extendedLanguageTag: Swift.String? {
+    get
+  }
+  @objc public var trackType: JWPlayerTVKit.JWTrackType {
+    get
+  }
+  @objc public var defaultOption: Swift.Bool {
+    get
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class JWGoogleDAIStream : ObjectiveC.NSObject {
+  public var videoID: Swift.String? {
+    get
+  }
+  public var cmsID: Swift.String? {
+    get
+  }
+  public var assetKey: Swift.String? {
+    get
+  }
+  public var apiKey: Swift.String? {
+    get
+  }
+  public var adTagParameters: [Swift.String : Swift.String]? {
+    get
+  }
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWGoogleDAIStreamBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWGoogleDAIStream
+  @objc public func build() throws -> JWPlayerTVKit.JWGoogleDAIStream
+  @objc @discardableResult
+  public func vodStreamInfo(videoID: Swift.String, cmsID: Swift.String) -> JWPlayerTVKit.JWGoogleDAIStreamBuilder
+  @objc @discardableResult
+  public func liveStreamInfo(assetKey: Swift.String) -> JWPlayerTVKit.JWGoogleDAIStreamBuilder
+  @objc @discardableResult
+  public func apiKey(_ apiKey: Swift.String) -> JWPlayerTVKit.JWGoogleDAIStreamBuilder
+  @objc @discardableResult
+  public func adTagParameters(_ adTagParameters: [Swift.String : Swift.String]) -> JWPlayerTVKit.JWGoogleDAIStreamBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum JWAdPosition : Swift.Int {
+  case pre
+  case post
+  case mid
+  case unknown
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum JWAdType : Swift.Int {
+  case linear
+  case unknown
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class JWAdvertisingConfig : ObjectiveC.NSObject {
+  public var skipOffset: Foundation.TimeInterval? {
+    get
+  }
+  @objc deinit
+}
+@objc public enum JWAdClient : Swift.Int, Swift.CustomStringConvertible {
+  case JWPlayer
+  case GoogleIMA
+  case GoogleIMADAI
+  case unknown
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum JWAdCompanionType : Swift.Int {
+  case iframe
+  case `static`
+  case html
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class JWAdCompanion : ObjectiveC.NSObject {
+  @objc final public let clickUrl: Foundation.URL
+  @objc final public let size: CoreGraphics.CGSize
+  @objc final public let resource: Foundation.URL
+  @objc final public let type: JWPlayerTVKit.JWAdCompanionType
+  @objc public var creativeViewArray: Foundation.NSArray? {
+    @objc get
+  }
+  public var creativeView: [Swift.String]?
+  @objc deinit
+}
+@objc public enum JWPlayReason : Swift.Int {
+  case external
+  case interaction
+  case playlist
+  case viewable
+  case repeatContent
+  case relatedInteraction
+  case relatedAuto
+  case autostart
+  case settingsInteraction
+  case unknown
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum JWPauseReason : Swift.Int {
+  case external
+  case interaction
+  case clickthrough
+  case viewable
+  case settingsInteraction
+  case relatedInteraction
+  case unknown
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum JWIdleReason : Swift.Int {
+  case complete
+  case idle
+  case unknown
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class JWVideoSource : ObjectiveC.NSObject {
+  @objc public var file: Foundation.URL! {
+    get
+  }
+  @objc public var label: Swift.String! {
+    get
+  }
+  @objc public var defaultVideo: Swift.Bool {
+    get
+  }
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWVideoSourceBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWVideoSource
+  @objc public func build() throws -> JWPlayerTVKit.JWVideoSource
+  @objc @discardableResult
+  public func file(_ file: Foundation.URL) -> JWPlayerTVKit.JWVideoSourceBuilder
+  @objc @discardableResult
+  public func label(_ label: Swift.String) -> JWPlayerTVKit.JWVideoSourceBuilder
+  @objc @discardableResult
+  public func defaultVideo(_ defaultVideo: Swift.Bool) -> JWPlayerTVKit.JWVideoSourceBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension UIKit.UIStackView {
+  @objc override dynamic open func point(inside point: CoreGraphics.CGPoint, with event: UIKit.UIEvent?) -> Swift.Bool
+}
+@_inheritsConvenienceInitializers @objc public class JWAdSettings : ObjectiveC.NSObject {
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWAdSettingsBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWAdSettings
+  @objc public func build() -> JWPlayerTVKit.JWAdSettings
+  @objc @discardableResult
+  public func allowsBackgroundPlayback(_ isAllowed: Swift.Bool) -> JWPlayerTVKit.JWAdSettingsBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class JWNextUpStyle : ObjectiveC.NSObject {
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWNextUpStyleBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWNextUpStyle
+  @objc public func build() throws -> JWPlayerTVKit.JWNextUpStyle
+  @objc @discardableResult
+  public func timeOffset(percentage: Swift.Float) -> JWPlayerTVKit.JWNextUpStyleBuilder
+  @objc @discardableResult
+  public func timeOffset(seconds: Foundation.TimeInterval) -> JWPlayerTVKit.JWNextUpStyleBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum JWBufferReason : Swift.Int {
+  case loading
+  case stalled
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol JWPlayerStateDelegate {
+  @objc func jwplayerContentWillComplete(_ player: JWPlayerTVKit.JWPlayer)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, willPlayWithReason reason: JWPlayerTVKit.JWPlayReason)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, isBufferingWithReason reason: JWPlayerTVKit.JWBufferReason)
+  @objc func jwplayerContentIsBuffering(_ player: JWPlayerTVKit.JWPlayer)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, updatedBuffer percent: Swift.Double, position time: JWPlayerTVKit.JWTimeData)
+  @objc func jwplayerContentDidComplete(_ player: JWPlayerTVKit.JWPlayer)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, didFinishLoadingWithTime loadTime: Foundation.TimeInterval)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, isPlayingWithReason reason: JWPlayerTVKit.JWPlayReason)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, isAttemptingToPlay playlistItem: JWPlayerTVKit.JWPlayerItem, reason: JWPlayerTVKit.JWPlayReason)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, didPauseWithReason reason: JWPlayerTVKit.JWPauseReason)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, didBecomeIdleWithReason reason: JWPlayerTVKit.JWIdleReason)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, isVisible: Swift.Bool)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, didLoadPlaylist playlist: [JWPlayerTVKit.JWPlayerItem])
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, didLoadPlaylistItem item: JWPlayerTVKit.JWPlayerItem, at index: Swift.UInt)
+  @objc func jwplayerPlaylistHasCompleted(_ player: JWPlayerTVKit.JWPlayer)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, usesMediaType type: JWPlayerTVKit.JWMediaType)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, seekedFrom oldPosition: Foundation.TimeInterval, to newPosition: Foundation.TimeInterval)
+  @objc func jwplayerHasSeeked(_ player: JWPlayerTVKit.JWPlayer)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, playbackRateChangedTo rate: Swift.Double, at time: Foundation.TimeInterval)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, updatedCues cues: [JWPlayerTVKit.JWCue])
+  @available(tvOS 14, *)
+  @available(iOS, unavailable)
+  @objc optional func jwplayer(_ player: JWPlayerTVKit.JWPlayer, enteredSkippableRange range: JWPlayerTVKit.JWSkippableTimeRange)
+}
+@objc public protocol JWAVDelegate {
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, audioTracksUpdated levels: [JWPlayerTVKit.JWMediaSelectionOption])
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, audioTrackChanged currentLevel: Swift.Int)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, qualityLevelsUpdated levels: [JWPlayerTVKit.JWVideoSource])
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, qualityLevelChanged currentLevel: Swift.Int)
+  @objc optional func jwplayer(_ player: JWPlayerTVKit.JWPlayer, visualQualityChanged currentVisualQuality: JWPlayerTVKit.JWVisualQuality)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, updatedCaptionList options: [JWPlayerTVKit.JWMediaSelectionOption])
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, captionTrackChanged index: Swift.Int)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, captionPresented caption: [Swift.String], at time: JWPlayerTVKit.JWTimeData)
+}
+@objc public enum JWAirPlayStatus : Swift.Int {
+  case connected
+  case disconnected
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol JWAirPlayDelegate {
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, airPlayStatusChanged status: JWPlayerTVKit.JWAirPlayStatus)
+}
+@objc public protocol JWTimeEventListener {
+  @objc func onMediaTimeEvent(_ time: JWPlayerTVKit.JWTimeData)
+  @objc func onAdTimeEvent(_ time: JWPlayerTVKit.JWTimeData)
+}
+@_hasMissingDesignatedInitializers @objc public class JWAdOffset : ObjectiveC.NSObject {
+  @objc public static func preroll() -> JWPlayerTVKit.JWAdOffset
+  @objc public static func postroll() -> JWPlayerTVKit.JWAdOffset
+  @objc public static func midroll(seconds: Foundation.TimeInterval) -> JWPlayerTVKit.JWAdOffset
+  @objc public static func midroll(percent: Swift.Int) -> JWPlayerTVKit.JWAdOffset
+  @objc public static func from(string val: Swift.String) -> JWPlayerTVKit.JWAdOffset?
+  @objc public func asString() -> Swift.String
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class JWImaSettings : ObjectiveC.NSObject {
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWImaSettingsBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWImaSettings
+  @objc public func build() -> JWPlayerTVKit.JWImaSettings
+  @objc @discardableResult
+  public func locale(_ locale: Swift.String) -> JWPlayerTVKit.JWImaSettingsBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class JWProgramDateTimeMetadata : ObjectiveC.NSObject {
+  @objc final public let start: Foundation.TimeInterval
+  @objc final public let end: Foundation.TimeInterval
+  @objc final public let programDateTime: Foundation.Date
+  @objc deinit
+}
+@objc public protocol JWProgramDateTimeMetadataDelegate {
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, programDateTimeMetadataCueParsed metadata: JWPlayerTVKit.JWProgramDateTimeMetadata)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, programDateTimeMetadata metadata: JWPlayerTVKit.JWProgramDateTimeMetadata)
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWPlayerConfigurationBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWPlayerConfiguration
+  @objc public func build() throws -> JWPlayerTVKit.JWPlayerConfiguration
+  @objc @discardableResult
+  public func playlist(_ playlist: [JWPlayerTVKit.JWPlayerItem]) -> JWPlayerTVKit.JWPlayerConfigurationBuilder
+  @objc @discardableResult
+  public func playlist(url: Foundation.URL) -> JWPlayerTVKit.JWPlayerConfigurationBuilder
+  @objc @discardableResult
+  public func advertising(_ advertising: JWPlayerTVKit.JWAdvertisingConfig) -> JWPlayerTVKit.JWPlayerConfigurationBuilder
+  @objc @discardableResult
+  public func related(_ related: JWPlayerTVKit.JWRelatedContentConfiguration) -> JWPlayerTVKit.JWPlayerConfigurationBuilder
+  @objc @discardableResult
+  public func autostart(_ autostart: Swift.Bool) -> JWPlayerTVKit.JWPlayerConfigurationBuilder
+  @objc @discardableResult
+  public func preload(_ preload: JWPlayerTVKit.JWPreload) -> JWPlayerTVKit.JWPlayerConfigurationBuilder
+  @objc @discardableResult
+  public func bitrateUpperBound(_ bitrateUpperBound: Swift.Float) -> JWPlayerTVKit.JWPlayerConfigurationBuilder
+  @objc @discardableResult
+  public func repeatContent(_ repeatContent: Swift.Bool) -> JWPlayerTVKit.JWPlayerConfigurationBuilder
+  @objc @discardableResult
+  public func externalMetadata(_ externalMetadata: [JWPlayerTVKit.JWExternalMetadata]) -> JWPlayerTVKit.JWPlayerConfigurationBuilder
+  @objc @available(iOS 10.0, *)
+  @discardableResult
+  public func adTracker(_ tracker: JWPlayerTVKit.JWAdTrackerConfig) -> JWPlayerTVKit.JWPlayerConfigurationBuilder
+  @objc @discardableResult
+  public func externalPlaybackSettings(_ settings: JWPlayerTVKit.JWExternalPlaybackSettings) -> JWPlayerTVKit.JWPlayerConfigurationBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWThumbnailTrackBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWMediaTrack
+  @objc public func build() throws -> JWPlayerTVKit.JWMediaTrack
+  @objc @discardableResult
+  public func file(_ file: Foundation.URL) -> JWPlayerTVKit.JWThumbnailTrackBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol JWPlayerCinematicViewControllerDelegate {
+  @objc func playerViewController(_ controller: JWPlayerTVKit.JWCinematicViewController, controlBarVisibilityChanged isVisible: Swift.Bool)
+  @objc func playerViewController(_ controller: JWPlayerTVKit.JWCinematicViewController, sizeChangedFrom oldSize: CoreGraphics.CGSize, to newSize: CoreGraphics.CGSize)
+}
+@objc @_inheritsConvenienceInitializers @objcMembers open class JWCinematicViewController : UIKit.UIViewController, AVKit.AVPictureInPictureControllerDelegate, JWPlayerTVKit.JWAccessLogMetadataDelegate, JWPlayerTVKit.JWAdDelegate, JWPlayerTVKit.JWAirPlayDelegate, JWPlayerTVKit.JWAVDelegate, JWPlayerTVKit.JWDateRangeMetadataDelegate, JWPlayerTVKit.JWExternalMetadataDelegate, JWPlayerTVKit.JWID3MetadataDelegate, JWPlayerTVKit.JWMediaMetadataDelegate, JWPlayerTVKit.JWPlayerDelegate, JWPlayerTVKit.JWPlayerStateDelegate, JWPlayerTVKit.JWPlayerViewDelegate, JWPlayerTVKit.JWProgramDateTimeMetadataDelegate, JWPlayerTVKit.JWTimeEventListener {
+  @objc public var player: JWPlayerTVKit.JWPlayerProtocol {
+    @objc get
+  }
+  @objc public var playerView: JWPlayerTVKit.JWPlayerViewProtocol {
+    @objc get
+  }
+  @objc weak public var delegate: JWPlayerTVKit.JWPlayerCinematicViewControllerDelegate?
+  @objc public var enableLockScreenControls: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc public var playbackRates: [Swift.Double] {
+    @objc get
+    @objc set
+  }
+  @objc public var interfaceFadeDelay: Foundation.TimeInterval {
+    @objc get
+    @objc set
+  }
+  @objc public var offlinePosterImage: UIKit.UIImage? {
+    @objc get
+    @objc set
+  }
+  @objc public var offlineMessage: Swift.String {
+    @objc get
+    @objc set
+  }
+  @objc public var adInterfaceStyle: JWPlayerTVKit.JWAdInterfaceStyle {
+    @objc get
+    @objc set
+  }
+  @objc public var allowsPictureInPicturePlayback: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc public var logo: JWPlayerTVKit.JWLogo? {
+    @objc get
+    @objc set
+  }
+  @objc public var interfaceBehavior: JWPlayerTVKit.JWInterfaceBehavior {
+    @objc get
+    @objc set
+  }
+  @objc public var nextUpStyle: JWPlayerTVKit.JWNextUpStyle? {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic open func viewDidLoad()
+  public func setFont(_ font: UIKit.UIFont?, labels: [JWPlayerTVKit.JWLabelType])
+  @objc public func setFont(_ font: UIKit.UIFont?, label: JWPlayerTVKit.JWLabelType)
+  public func setTextColor(_ color: UIKit.UIColor?, labels: [JWPlayerTVKit.JWLabelType])
+  @objc public func setTextColor(_ color: UIKit.UIColor?, label: JWPlayerTVKit.JWLabelType)
+  public func setFont(_ font: UIKit.UIFont?, forState state: UIKit.UIControl.State, buttons: [JWPlayerTVKit.JWButtonType])
+  @objc public func setFont(_ font: UIKit.UIFont?, forState state: UIKit.UIControl.State, button: JWPlayerTVKit.JWButtonType)
+  public func setTitleColor(_ color: UIKit.UIColor?, forState state: UIKit.UIControl.State, buttons: [JWPlayerTVKit.JWButtonType])
+  @objc public func setTitleColor(_ color: UIKit.UIColor?, forState state: UIKit.UIControl.State, button: JWPlayerTVKit.JWButtonType)
+  public func setTintColor(_ color: UIKit.UIColor?, buttons: [JWPlayerTVKit.JWButtonType])
+  @objc public func setTintColor(_ color: UIKit.UIColor?, button: JWPlayerTVKit.JWButtonType)
+  public func setBackgroundColor(_ color: UIKit.UIColor?, views: [JWPlayerTVKit.JWViewType])
+  @objc public func setBackgroundColor(_ color: UIKit.UIColor?, view: JWPlayerTVKit.JWViewType)
+  @objc override dynamic open func didMove(toParent parent: UIKit.UIViewController?)
+  @objc open func playerView(_ view: JWPlayerTVKit.JWPlayerView, sizeChangedFrom oldSize: CoreGraphics.CGSize, to newSize: CoreGraphics.CGSize)
+  @objc open func controlBarVisibilityChanged(isVisible: Swift.Bool)
+  @objc open func jwplayerIsReady(_ player: JWPlayerTVKit.JWPlayer)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, failedWithError code: Swift.UInt, message: Swift.String)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, failedWithSetupError code: Swift.UInt, message: Swift.String)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, encounteredWarning code: Swift.UInt, message: Swift.String)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, encounteredAdWarning code: Swift.UInt, message: Swift.String)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, encounteredAdError code: Swift.UInt, message: Swift.String)
+  @objc open func jwplayerContentWillComplete(_ player: JWPlayerTVKit.JWPlayer)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, willPlayWithReason reason: JWPlayerTVKit.JWPlayReason)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, isBufferingWithReason reason: JWPlayerTVKit.JWBufferReason)
+  @objc open func jwplayerContentIsBuffering(_ player: JWPlayerTVKit.JWPlayer)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, updatedBuffer percent: Swift.Double, position time: JWPlayerTVKit.JWTimeData)
+  @objc open func jwplayerContentDidComplete(_ player: JWPlayerTVKit.JWPlayer)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, didFinishLoadingWithTime loadTime: Foundation.TimeInterval)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, isPlayingWithReason reason: JWPlayerTVKit.JWPlayReason)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, isAttemptingToPlay playlistItem: JWPlayerTVKit.JWPlayerItem, reason: JWPlayerTVKit.JWPlayReason)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, didPauseWithReason reason: JWPlayerTVKit.JWPauseReason)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, didBecomeIdleWithReason reason: JWPlayerTVKit.JWIdleReason)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, isVisible: Swift.Bool)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, didLoadPlaylist playlist: [JWPlayerTVKit.JWPlayerItem])
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, didLoadPlaylistItem item: JWPlayerTVKit.JWPlayerItem, at index: Swift.UInt)
+  @objc open func jwplayerPlaylistHasCompleted(_ player: JWPlayerTVKit.JWPlayer)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, usesMediaType type: JWPlayerTVKit.JWMediaType)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, seekedFrom oldPosition: Foundation.TimeInterval, to newPosition: Foundation.TimeInterval)
+  @objc open func jwplayerHasSeeked(_ player: JWPlayerTVKit.JWPlayer)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, playbackRateChangedTo rate: Swift.Double, at time: Foundation.TimeInterval)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, enteredSkippableRange range: JWPlayerTVKit.JWSkippableTimeRange)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, updatedCues cues: [JWPlayerTVKit.JWCue])
+  @objc open func onMediaTimeEvent(_ time: JWPlayerTVKit.JWTimeData)
+  @objc open func onAdTimeEvent(_ time: JWPlayerTVKit.JWTimeData)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, audioTracksUpdated levels: [JWPlayerTVKit.JWMediaSelectionOption])
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, audioTrackChanged currentLevel: Swift.Int)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, qualityLevelsUpdated levels: [JWPlayerTVKit.JWVideoSource])
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, qualityLevelChanged currentLevel: Swift.Int)
+  @objc public func jwplayer(_ player: JWPlayerTVKit.JWPlayer, visualQualityChanged currentVisualQuality: JWPlayerTVKit.JWVisualQuality)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, updatedCaptionList options: [JWPlayerTVKit.JWMediaSelectionOption])
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, captionTrackChanged index: Swift.Int)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, captionPresented caption: [Swift.String], at time: JWPlayerTVKit.JWTimeData)
+  @objc open func jwplayer(_ player: Swift.AnyObject, adEvent event: JWPlayerTVKit.JWAdEvent)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, airPlayStatusChanged status: JWPlayerTVKit.JWAirPlayStatus)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, didReceiveMediaMetadata metadata: JWPlayerTVKit.JWMediaMetadata)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, didReceiveAccessLogMetadata metadata: JWPlayerTVKit.JWAccessLogMetadata)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, dateRangeMetadataCueParsed metadata: JWPlayerTVKit.JWDateRangeMetadata)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, dateRangeMetadata metadata: JWPlayerTVKit.JWDateRangeMetadata)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, id3Metadata metadata: JWPlayerTVKit.JWID3Metadata)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, externalMetadataCueParsed metadata: JWPlayerTVKit.JWExternalMetadata)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, externalMetadata metadata: JWPlayerTVKit.JWExternalMetadata)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, programDateTimeMetadataCueParsed metadata: JWPlayerTVKit.JWProgramDateTimeMetadata)
+  @objc open func jwplayer(_ player: JWPlayerTVKit.JWPlayer, programDateTimeMetadata metadata: JWPlayerTVKit.JWProgramDateTimeMetadata)
+  @objc open func pictureInPictureControllerWillStartPictureInPicture(_ pictureInPictureController: AVKit.AVPictureInPictureController)
+  @objc open func pictureInPictureControllerDidStartPictureInPicture(_ pictureInPictureController: AVKit.AVPictureInPictureController)
+  @objc open func pictureInPictureControllerWillStopPictureInPicture(_ pictureInPictureController: AVKit.AVPictureInPictureController)
+  @objc open func pictureInPictureControllerDidStopPictureInPicture(_ pictureInPictureController: AVKit.AVPictureInPictureController)
+  @objc open func pictureInPictureController(_ pictureInPictureController: AVKit.AVPictureInPictureController, restoreUserInterfaceForPictureInPictureStopWithCompletionHandler completionHandler: @escaping (Swift.Bool) -> Swift.Void)
+  @objc open func pictureInPictureController(_ pictureInPictureController: AVKit.AVPictureInPictureController, failedToStartPictureInPictureWithError error: Swift.Error)
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWAdsAdvertisingConfigBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWAdvertisingConfig
+  @objc public func build() throws -> JWPlayerTVKit.JWAdvertisingConfig
+  @objc @discardableResult
+  public func vmapURL(_ vmapURL: Foundation.URL) -> JWPlayerTVKit.JWAdsAdvertisingConfigBuilder
+  @objc @discardableResult
+  public func schedule(_ schedule: [JWPlayerTVKit.JWAdBreak]) -> JWPlayerTVKit.JWAdsAdvertisingConfigBuilder
+  @objc @discardableResult
+  public func tag(_ tag: Foundation.URL) -> JWPlayerTVKit.JWAdsAdvertisingConfigBuilder
+  @objc @discardableResult
+  public func adRules(_ adRules: JWPlayerTVKit.JWAdRules) -> JWPlayerTVKit.JWAdsAdvertisingConfigBuilder
+  @objc @discardableResult
+  public func openBrowserOnAdClick(_ openBrowserOnAdClick: Swift.Bool) -> JWPlayerTVKit.JWAdsAdvertisingConfigBuilder
+  @discardableResult
+  public func skipOffset(_ offset: Foundation.TimeInterval?) -> JWPlayerTVKit.JWAdsAdvertisingConfigBuilder
+  @objc @discardableResult
+  public func adSettings(_ settings: JWPlayerTVKit.JWAdSettings) -> JWPlayerTVKit.JWAdsAdvertisingConfigBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol JWBuilder {
+  associatedtype Output
+  func build() throws -> Self.Output
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class JWPlayerConfiguration : ObjectiveC.NSObject {
+  public var externalPlaybackSettings: JWPlayerTVKit.JWExternalPlaybackSettings?
+  @objc deinit
+}
+@objc public enum JWPreload : Swift.Int, Swift.CustomStringConvertible {
+  case auto
+  case none
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class JWExternalPlaybackSettings : ObjectiveC.NSObject {
+  public var playbackEnabled: Swift.Bool {
+    get
+  }
+  public var videoGravity: JWPlayerTVKit.JWVideoGravity {
+    get
+  }
+  public var usesExternalPlaybackWhileExternalScreenIsActive: Swift.Bool {
+    get
+  }
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class JWExternalPlaybackSettingsBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWExternalPlaybackSettings
+  public func build() throws -> JWPlayerTVKit.JWExternalPlaybackSettings
+  @discardableResult
+  public func playbackEnabled(_ enabled: Swift.Bool) -> JWPlayerTVKit.JWExternalPlaybackSettingsBuilder
+  @discardableResult
+  public func videoGravity(_ gravity: JWPlayerTVKit.JWVideoGravity) -> JWPlayerTVKit.JWExternalPlaybackSettingsBuilder
+  @discardableResult
+  public func usesExternalPlaybackWhileExternalScreenIsActive(_ usesExternalPlaybackWhileExternalScreenIsActive: Swift.Bool) -> JWPlayerTVKit.JWExternalPlaybackSettingsBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class JWMediaTrack : ObjectiveC.NSObject {
+  @objc public var file: Foundation.URL! {
+    get
+  }
+  @objc public var label: Swift.String? {
+    get
+  }
+  @objc public var defaultTrack: Swift.Bool {
+    get
+  }
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWChapterTrackBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWChapterTrack
+  @objc public func build() throws -> JWPlayerTVKit.JWChapterTrack
+  @objc @discardableResult
+  public func file(_ file: Foundation.URL) -> JWPlayerTVKit.JWChapterTrackBuilder
+  @objc @available(iOS, unavailable)
+  @discardableResult
+  public func skippableChapters(ids: [Swift.String]) -> JWPlayerTVKit.JWChapterTrackBuilder
+  @objc @available(iOS, unavailable)
+  @discardableResult
+  public func skipButtonDuration(seconds: Foundation.TimeInterval) -> JWPlayerTVKit.JWChapterTrackBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol JWPlayerDelegate {
+  @objc func jwplayerIsReady(_ player: JWPlayerTVKit.JWPlayer)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, failedWithError code: Swift.UInt, message: Swift.String)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, failedWithSetupError code: Swift.UInt, message: Swift.String)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, encounteredWarning code: Swift.UInt, message: Swift.String)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, encounteredAdWarning code: Swift.UInt, message: Swift.String)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, encounteredAdError code: Swift.UInt, message: Swift.String)
+}
+@objc public protocol JWPlayerProtocol {
+  @objc func configurePlayer(with configuration: JWPlayerTVKit.JWPlayerConfiguration)
+  @objc var volume: Swift.Double { get set }
+  @objc var playbackRate: Swift.Double { get set }
+  @objc var time: JWPlayerTVKit.JWTimeData { get }
+  @objc func play()
+  @objc func pause()
+  @objc func stop()
+  @objc func seek(to seconds: Foundation.TimeInterval)
+  @objc func rewind(seconds: Foundation.TimeInterval)
+  @objc func forward(seconds: Foundation.TimeInterval)
+  @objc func next()
+  @objc func previous()
+  @objc func play(ad tag: Foundation.URL, client: JWPlayerTVKit.JWAdClient)
+  @objc func skipAd()
+  @objc func openAdClickthrough()
+  @objc func getState() -> JWPlayerTVKit.JWPlayerState
+  @objc func loadPlaylist(_ playlist: [JWPlayerTVKit.JWPlayerItem])
+  @objc func loadPlayerItemAt(index: Swift.Int)
+  @objc var currentItem: JWPlayerTVKit.JWPlayerItem? { get }
+  @objc func getCues() -> [JWPlayerTVKit.JWCue]
+  @objc func setCues(_ cues: [JWPlayerTVKit.JWCue])
+  @objc func addCues(_ cues: [JWPlayerTVKit.JWCue])
+  @objc func setCaptionTrack(index: Swift.Int) throws
+  @objc func setCaptionTrack(locale: Swift.String?) throws
+  @objc var suppressesCaptionRendering: Swift.Bool { get set }
+  @objc var currentCaptionsTrack: Swift.Int { get set }
+  @objc var captionsTracks: [JWPlayerTVKit.JWMediaSelectionOption] { get }
+  @objc var currentAudioTrack: Swift.Int { get set }
+  @objc var audioTracks: [JWPlayerTVKit.JWMediaSelectionOption] { get }
+  @objc var currentVisualQuality: Swift.Int { get set }
+  @objc var visualQualityLevels: [JWPlayerTVKit.JWVideoSource] { get }
+  @objc var visualQuality: JWPlayerTVKit.JWVisualQuality? { get }
+  @objc var contentKeyDataSource: JWPlayerTVKit.JWDRMContentKeyDataSource? { get set }
+  @objc var friendlyObstructions: JWPlayerTVKit.JWFriendlyObstructionManager { get }
+}
+@objc public protocol JWPlayer : JWPlayerTVKit.JWPlayerProtocol {
+  @objc var delegate: JWPlayerTVKit.JWPlayerDelegate? { get set }
+  @objc var playbackStateDelegate: JWPlayerTVKit.JWPlayerStateDelegate? { get set }
+  @objc var adDelegate: JWPlayerTVKit.JWAdDelegate? { get set }
+  @objc var avDelegate: JWPlayerTVKit.JWAVDelegate? { get set }
+  @objc var airPlayDelegate: JWPlayerTVKit.JWAirPlayDelegate? { get set }
+  @objc var adTimeObserver: ((JWPlayerTVKit.JWTimeData) -> Swift.Void)? { get set }
+  @objc var mediaTimeObserver: ((JWPlayerTVKit.JWTimeData) -> Swift.Void)? { get set }
+  @objc var metadataDelegates: JWPlayerTVKit.JWMetadataDelegates { get }
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWAdRulesBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWAdRules
+  @objc public func build() throws -> JWPlayerTVKit.JWAdRules
+  @objc @discardableResult
+  public func jwRules(startOn: Swift.UInt, frequency: Swift.UInt, timeBetweenAds: Swift.UInt, startOnSeek: JWPlayerTVKit.JWAdShownOnSeek) -> JWPlayerTVKit.JWAdRulesBuilder
+  @objc @discardableResult
+  public func imaRules(startOn: Swift.UInt, frequency: Swift.UInt) -> JWPlayerTVKit.JWAdRulesBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers public class JWAdImpression : ObjectiveC.NSObject {
+  @objc public var position: JWPlayerTVKit.JWAdPosition {
+    get
+  }
+  @objc public var system: Swift.String! {
+    get
+  }
+  @objc public var title: Swift.String! {
+    get
+  }
+  @objc public var clickThroughURL: Foundation.URL? {
+    get
+  }
+  @objc public var type: JWPlayerTVKit.JWAdType {
+    get
+  }
+  public var sequence: Swift.Int? {
+    get
+  }
+  public var podCount: Swift.Int? {
+    get
+  }
+  @objc public var adId: Swift.String! {
+    get
+  }
+  @objc public var creativeAdId: Swift.String! {
+    get
+  }
+  @objc public var creativeId: Swift.String! {
+    get
+  }
+  public var duration: Foundation.TimeInterval? {
+    get
+  }
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class JWPlayerAdImpression : JWPlayerTVKit.JWAdImpression {
+  @objc public var wrappers: [Swift.String] {
+    get
+  }
+  @objc public var vastVersion: Swift.String! {
+    get
+  }
+  @objc public var mediaFile: Foundation.URL! {
+    get
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class JWLogo : ObjectiveC.NSObject {
+  @objc deinit
+}
+@objc public enum JWLogoPosition : Swift.Int {
+  case topRight
+  case topLeft
+  case bottomRight
+  case bottomLeft
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWLogoBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWLogo
+  @objc public func build() throws -> JWPlayerTVKit.JWLogo
+  @objc @discardableResult
+  public func image(_ image: UIKit.UIImage) -> JWPlayerTVKit.JWLogoBuilder
+  @objc @discardableResult
+  public func imageFile(_ imageFile: Foundation.URL) -> JWPlayerTVKit.JWLogoBuilder
+  @objc @discardableResult
+  public func fades(_ fades: Swift.Bool) -> JWPlayerTVKit.JWLogoBuilder
+  @objc @available(tvOS, unavailable)
+  @discardableResult
+  public func weblink(_ weblink: Foundation.URL) -> JWPlayerTVKit.JWLogoBuilder
+  @objc @discardableResult
+  public func margin(_ margin: Swift.Int) -> JWPlayerTVKit.JWLogoBuilder
+  @objc @discardableResult
+  public func position(_ position: JWPlayerTVKit.JWLogoPosition) -> JWPlayerTVKit.JWLogoBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol JWExternalMetadataDelegate {
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, externalMetadataCueParsed metadata: JWPlayerTVKit.JWExternalMetadata)
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, externalMetadata metadata: JWPlayerTVKit.JWExternalMetadata)
+}
+@objc public class JWExternalMetadata : ObjectiveC.NSObject {
+  final public let identifier: Swift.String
+  final public let startTime: Foundation.TimeInterval
+  final public let endTime: Foundation.TimeInterval
+  public init(identifier: Swift.String, startTime: Foundation.TimeInterval, endTime: Foundation.TimeInterval)
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class JWAdBreak : ObjectiveC.NSObject {
+  @objc public var tags: [Foundation.URL] {
+    get
+  }
+  public var skipOffset: Foundation.TimeInterval? {
+    get
+  }
+  @objc public var offset: JWPlayerTVKit.JWAdOffset {
+    get
+  }
+  @objc public var type: JWPlayerTVKit.JWAdType {
+    get
+  }
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWAdBreakBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWAdBreak
+  @objc public func build() throws -> JWPlayerTVKit.JWAdBreak
+  @objc @discardableResult
+  public func tags(_ tags: [Foundation.URL]) -> JWPlayerTVKit.JWAdBreakBuilder
+  @objc @discardableResult
+  public func offset(_ offset: JWPlayerTVKit.JWAdOffset) -> JWPlayerTVKit.JWAdBreakBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+public typealias JSONPayload = [Swift.AnyHashable : Any]
+@objc @_hasMissingDesignatedInitializers @objcMembers public class JWError : Foundation.NSError {
+  @objc final public let key: Swift.String
+  @objc final public let errorDescription: Swift.String
+  @objc override dynamic public var localizedDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public protocol JWAdDelegate {
+  @objc func jwplayer(_ player: Swift.AnyObject, adEvent event: JWPlayerTVKit.JWAdEvent)
+}
+@_hasMissingDesignatedInitializers @objc public class JWAdEvent : ObjectiveC.NSObject {
+  @objc final public let type: JWPlayerTVKit.JWAdEventType
+  @objc final public let client: JWPlayerTVKit.JWAdClient
+  @objc public subscript(key: JWPlayerTVKit.JWAdEventKey) -> Any? {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public enum JWAdEventType : Swift.Int {
+  case adBreakEnd
+  case adBreakStart
+  case clicked
+  case complete
+  case impression
+  case meta
+  case pause
+  case play
+  case request
+  case schedule
+  case skipped
+  case started
+  case companion
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum JWAdEventKey : Swift.Int, Swift.CaseIterable, Swift.CustomStringConvertible {
+  case adPosition
+  case adSystem
+  case adTitle
+  case clickThroughUrl
+  case companions
+  case creativeAdId
+  case creativeId
+  case creativetype
+  case id
+  case ima
+  case impression
+  case linear
+  case metadata
+  case newState
+  case oldState
+  case pauseReason
+  case placement
+  case playReason
+  case podCount
+  case position
+  case schedule
+  case sequence
+  case skipOffset
+  case tag
+  case type
+  case viewable
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [JWPlayerTVKit.JWAdEventKey]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [JWPlayerTVKit.JWAdEventKey] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class JWAdTrackerConfig : ObjectiveC.NSObject {
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWCaptionTrackBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWMediaTrack
+  @objc public func build() throws -> JWPlayerTVKit.JWMediaTrack
+  @objc @discardableResult
+  public func file(_ file: Foundation.URL) -> JWPlayerTVKit.JWCaptionTrackBuilder
+  @objc @discardableResult
+  public func label(_ label: Swift.String) -> JWPlayerTVKit.JWCaptionTrackBuilder
+  @objc @discardableResult
+  public func defaultTrack(_ defaultTrack: Swift.Bool) -> JWPlayerTVKit.JWCaptionTrackBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class JWAdInterfaceStyle : ObjectiveC.NSObject {
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWAdInterfaceStyleBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWAdInterfaceStyle
+  @objc public func build() throws -> JWPlayerTVKit.JWAdInterfaceStyleBuilder.Output
+  @objc @discardableResult
+  public func countdownText(_ text: Swift.String) -> JWPlayerTVKit.JWAdInterfaceStyleBuilder
+  @objc @discardableResult
+  public func skipDelayText(_ text: Swift.String) -> JWPlayerTVKit.JWAdInterfaceStyleBuilder
+  @objc @discardableResult
+  public func skipText(_ text: Swift.String) -> JWPlayerTVKit.JWAdInterfaceStyleBuilder
+  @objc @discardableResult
+  public func skipDelay(_ seconds: Foundation.TimeInterval) -> JWPlayerTVKit.JWAdInterfaceStyleBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class JWTimeSliderStyle : ObjectiveC.NSObject {
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWTimeSliderStyleBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWTimeSliderStyle
+  @objc public func build() throws -> JWPlayerTVKit.JWTimeSliderStyle
+  @objc @discardableResult
+  public func maximumTrackColor(_ maximumTrackColor: UIKit.UIColor) -> JWPlayerTVKit.JWTimeSliderStyleBuilder
+  @objc @discardableResult
+  public func minimumTrackColor(_ minimumTrackColor: UIKit.UIColor) -> JWPlayerTVKit.JWTimeSliderStyleBuilder
+  @objc @discardableResult
+  public func thumbColor(_ thumbColor: UIKit.UIColor) -> JWPlayerTVKit.JWTimeSliderStyleBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol JWAccessLogMetadataDelegate {
+  @objc func jwplayer(_ player: JWPlayerTVKit.JWPlayer, didReceiveAccessLogMetadata metadata: JWPlayerTVKit.JWAccessLogMetadata)
+}
+public let JWAccessLogMetadataUnknownBitrate: Swift.Double
+public let JWAccessLogMetadataUnknownDroppedFrames: Swift.Int
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class JWAccessLogMetadata : ObjectiveC.NSObject {
+  @objc final public let observedBitrate: Swift.Double
+  @objc final public let indicatedBitrate: Swift.Double
+  @objc final public let droppedFrames: Swift.Int
+  @objc deinit
+}
+@objc public protocol JWPlayerViewProtocol {
+  @objc var captionStyle: JWPlayerTVKit.JWCaptionStyle? { get set }
+  @objc var captionInsets: UIKit.UIEdgeInsets { get set }
+  @objc var pictureInPictureController: AVKit.AVPictureInPictureController? { get }
+  @objc var videoGravity: JWPlayerTVKit.JWVideoGravity { get set }
+  @objc var allowsPictureInPicturePlayback: Swift.Bool { get set }
+}
+@objc public protocol JWPlayerViewDelegate {
+  @objc func playerView(_ view: JWPlayerTVKit.JWPlayerView, sizeChangedFrom oldSize: CoreGraphics.CGSize, to newSize: CoreGraphics.CGSize)
+}
+@objc public enum JWVideoGravity : Swift.Int {
+  case resizeAspect
+  case resizeAspectFill
+  case resize
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class JWPlayerView : UIKit.UIView, JWPlayerTVKit.JWPlayerViewProtocol {
+  @objc override public static var layerClass: Swift.AnyClass {
+    @objc get
+  }
+  @objc public var player: JWPlayerTVKit.JWPlayer {
+    @objc get
+  }
+  @objc weak public var delegate: JWPlayerTVKit.JWPlayerViewDelegate? {
+    @objc get
+    @objc set
+  }
+  @objc public var allowsPictureInPicturePlayback: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc public var captionStyle: JWPlayerTVKit.JWCaptionStyle? {
+    @objc get
+    @objc set
+  }
+  @objc public var captionInsets: UIKit.UIEdgeInsets {
+    @objc get
+    @objc set
+  }
+  @objc public var pictureInPictureController: AVKit.AVPictureInPictureController? {
+    @objc get
+  }
+  @objc public var videoGravity: JWPlayerTVKit.JWVideoGravity {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc override dynamic public func didMoveToWindow()
+  @objc deinit
+  @objc override dynamic public func layoutSubviews()
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWPlayerKitLicense : ObjectiveC.NSObject {
+  @objc public static func setLicenseKey(_ clientKey: Swift.String)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWImaDaiAdvertisingConfigBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWAdvertisingConfig
+  @objc public func build() throws -> JWPlayerTVKit.JWAdvertisingConfig
+  @objc @discardableResult
+  public func googleDAIStream(_ googleDAIStream: JWPlayerTVKit.JWGoogleDAIStream) -> JWPlayerTVKit.JWImaDaiAdvertisingConfigBuilder
+  @objc @discardableResult
+  public func friendlyObstructionsContainer(_ container: JWPlayerTVKit.JWFriendlyObstructionsContainer) -> JWPlayerTVKit.JWImaDaiAdvertisingConfigBuilder
+  @objc @discardableResult
+  public func imaSettings(_ imaSettings: JWPlayerTVKit.JWImaSettings) -> JWPlayerTVKit.JWImaDaiAdvertisingConfigBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum JWVisualQualityMode : Swift.Int {
+  case auto
+  case manual
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum JWVisualQualityReason : Swift.Int {
+  case initial
+  case auto
+  case api
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers public class JWVisualQualityLevel : ObjectiveC.NSObject {
+  @objc final public let index: Swift.Int
+  @objc final public let size: CoreGraphics.CGSize
+  @objc final public let label: Swift.String
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers public class JWVisualQuality : ObjectiveC.NSObject {
+  @objc final public let reason: JWPlayerTVKit.JWVisualQualityReason
+  @objc final public let mode: JWPlayerTVKit.JWVisualQualityMode
+  @objc final public let bitrate: Swift.Double
+  @objc final public let level: JWPlayerTVKit.JWVisualQualityLevel
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class JWCaptionStyle : ObjectiveC.NSObject {
+  @objc public var fontColor: UIKit.UIColor? {
+    get
+  }
+  @objc public var backgroundColor: UIKit.UIColor? {
+    get
+  }
+  @objc public var highlightColor: UIKit.UIColor? {
+    get
+  }
+  @objc public var font: UIKit.UIFont? {
+    get
+  }
+  @objc public var edgeStyle: JWPlayerTVKit.JWCaptionEdgeStyle {
+    get
+  }
+  @objc deinit
+}
+@objc public enum JWCaptionEdgeStyle : Swift.Int {
+  case undefined = 1
+  case none
+  case dropshadow
+  case raised
+  case depressed
+  case uniform
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class JWCaptionStyleBuilder : ObjectiveC.NSObject, JWPlayerTVKit.JWBuilder {
+  public typealias Output = JWPlayerTVKit.JWCaptionStyle
+  @objc public func build() throws -> JWPlayerTVKit.JWCaptionStyle
+  @objc @discardableResult
+  public func fontColor(_ fontColor: UIKit.UIColor) -> JWPlayerTVKit.JWCaptionStyleBuilder
+  @objc @discardableResult
+  public func backgroundColor(_ backgroundColor: UIKit.UIColor) -> JWPlayerTVKit.JWCaptionStyleBuilder
+  @objc @discardableResult
+  public func highlightColor(_ highlightColor: UIKit.UIColor) -> JWPlayerTVKit.JWCaptionStyleBuilder
+  @objc @discardableResult
+  public func font(_ font: UIKit.UIFont) -> JWPlayerTVKit.JWCaptionStyleBuilder
+  @objc @discardableResult
+  public func edgeStyle(_ edgeStyle: JWPlayerTVKit.JWCaptionEdgeStyle) -> JWPlayerTVKit.JWCaptionStyleBuilder
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol JWFriendlyObstructionManager {
+  @objc var obstructions: [JWPlayerTVKit.JWFriendlyObstruction] { get }
+  @objc func register(_ obstructions: [JWPlayerTVKit.JWFriendlyObstruction])
+  @objc func deregister(_ obstructions: [JWPlayerTVKit.JWFriendlyObstruction])
+  @objc func deregisterAllObstructions()
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers public class JWLockScreenManager : ObjectiveC.NSObject {
+  @objc public static let shared: JWPlayerTVKit.JWLockScreenManager
+  @objc public func activeLockScreenPlayer(_ player: JWPlayerTVKit.JWPlayer)
+  @objc public func removePlayer(_ player: JWPlayerTVKit.JWPlayer)
+  @objc deinit
+}
+@objc public enum JWInterfaceBehavior : Swift.Int {
+  case normal
+  case hidden
+  case alwaysOnScreen
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum JWRelatedOnComplete : Swift.Int {
+  case show
+  case hide
+  case autoplay
+  case none
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum JWRelatedOnClick : Swift.Int {
+  case play
+  case link
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum JWVisibilityState : Swift.Int {
+  case hidden
+  case visible
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum JWControlType : Swift.Int {
+  case fastForwardButton
+  case rewindButton
+  case pictureInPictureButton
+  case airplayButton
+  case chromecastButton
+  case nextButton
+  case previousButton
+  case settingsButton
+  case languagesButton
+  case fullscreenButton
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class JWAdRules : ObjectiveC.NSObject {
+  @objc deinit
+}
+@objc public enum JWAdShownOnSeek : Swift.Int {
+  case none
+  case pre
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class JWChapterTrack : JWPlayerTVKit.JWMediaTrack {
+  @objc public var skippableChapters: [Swift.String] {
+    get
+  }
+  @objc public var skipButtonDuration: Swift.Double {
+    get
+  }
+  @objc deinit
+}
+extension JWPlayerTVKit.JWPlayerState : Swift.Equatable {}
+extension JWPlayerTVKit.JWPlayerState : Swift.Hashable {}
+extension JWPlayerTVKit.JWPlayerState : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWMediaType : Swift.Equatable {}
+extension JWPlayerTVKit.JWMediaType : Swift.Hashable {}
+extension JWPlayerTVKit.JWMediaType : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWTrackType : Swift.Equatable {}
+extension JWPlayerTVKit.JWTrackType : Swift.Hashable {}
+extension JWPlayerTVKit.JWTrackType : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWLabelType : Swift.Equatable {}
+extension JWPlayerTVKit.JWLabelType : Swift.Hashable {}
+extension JWPlayerTVKit.JWLabelType : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWButtonType : Swift.Equatable {}
+extension JWPlayerTVKit.JWButtonType : Swift.Hashable {}
+extension JWPlayerTVKit.JWButtonType : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWViewType : Swift.Equatable {}
+extension JWPlayerTVKit.JWViewType : Swift.Hashable {}
+extension JWPlayerTVKit.JWViewType : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWFriendlyObstructionPurpose : Swift.Equatable {}
+extension JWPlayerTVKit.JWFriendlyObstructionPurpose : Swift.Hashable {}
+extension JWPlayerTVKit.JWFriendlyObstructionPurpose : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWDRMEncryption : Swift.Equatable {}
+extension JWPlayerTVKit.JWDRMEncryption : Swift.Hashable {}
+extension JWPlayerTVKit.JWDRMEncryption : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWAdPosition : Swift.Equatable {}
+extension JWPlayerTVKit.JWAdPosition : Swift.Hashable {}
+extension JWPlayerTVKit.JWAdPosition : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWAdType : Swift.Equatable {}
+extension JWPlayerTVKit.JWAdType : Swift.Hashable {}
+extension JWPlayerTVKit.JWAdType : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWAdClient : Swift.Equatable {}
+extension JWPlayerTVKit.JWAdClient : Swift.Hashable {}
+extension JWPlayerTVKit.JWAdClient : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWAdCompanionType : Swift.Equatable {}
+extension JWPlayerTVKit.JWAdCompanionType : Swift.Hashable {}
+extension JWPlayerTVKit.JWAdCompanionType : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWPlayReason : Swift.Equatable {}
+extension JWPlayerTVKit.JWPlayReason : Swift.Hashable {}
+extension JWPlayerTVKit.JWPlayReason : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWPauseReason : Swift.Equatable {}
+extension JWPlayerTVKit.JWPauseReason : Swift.Hashable {}
+extension JWPlayerTVKit.JWPauseReason : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWIdleReason : Swift.Equatable {}
+extension JWPlayerTVKit.JWIdleReason : Swift.Hashable {}
+extension JWPlayerTVKit.JWIdleReason : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWBufferReason : Swift.Equatable {}
+extension JWPlayerTVKit.JWBufferReason : Swift.Hashable {}
+extension JWPlayerTVKit.JWBufferReason : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWAirPlayStatus : Swift.Equatable {}
+extension JWPlayerTVKit.JWAirPlayStatus : Swift.Hashable {}
+extension JWPlayerTVKit.JWAirPlayStatus : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWPreload : Swift.Equatable {}
+extension JWPlayerTVKit.JWPreload : Swift.Hashable {}
+extension JWPlayerTVKit.JWPreload : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWLogoPosition : Swift.Equatable {}
+extension JWPlayerTVKit.JWLogoPosition : Swift.Hashable {}
+extension JWPlayerTVKit.JWLogoPosition : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWAdEventType : Swift.Equatable {}
+extension JWPlayerTVKit.JWAdEventType : Swift.Hashable {}
+extension JWPlayerTVKit.JWAdEventType : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWAdEventKey : Swift.Equatable {}
+extension JWPlayerTVKit.JWAdEventKey : Swift.Hashable {}
+extension JWPlayerTVKit.JWAdEventKey : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWVideoGravity : Swift.Equatable {}
+extension JWPlayerTVKit.JWVideoGravity : Swift.Hashable {}
+extension JWPlayerTVKit.JWVideoGravity : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWVisualQualityMode : Swift.Equatable {}
+extension JWPlayerTVKit.JWVisualQualityMode : Swift.Hashable {}
+extension JWPlayerTVKit.JWVisualQualityMode : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWVisualQualityReason : Swift.Equatable {}
+extension JWPlayerTVKit.JWVisualQualityReason : Swift.Hashable {}
+extension JWPlayerTVKit.JWVisualQualityReason : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWCaptionEdgeStyle : Swift.Equatable {}
+extension JWPlayerTVKit.JWCaptionEdgeStyle : Swift.Hashable {}
+extension JWPlayerTVKit.JWCaptionEdgeStyle : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWInterfaceBehavior : Swift.Equatable {}
+extension JWPlayerTVKit.JWInterfaceBehavior : Swift.Hashable {}
+extension JWPlayerTVKit.JWInterfaceBehavior : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWRelatedOnComplete : Swift.Equatable {}
+extension JWPlayerTVKit.JWRelatedOnComplete : Swift.Hashable {}
+extension JWPlayerTVKit.JWRelatedOnComplete : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWRelatedOnClick : Swift.Equatable {}
+extension JWPlayerTVKit.JWRelatedOnClick : Swift.Hashable {}
+extension JWPlayerTVKit.JWRelatedOnClick : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWVisibilityState : Swift.Equatable {}
+extension JWPlayerTVKit.JWVisibilityState : Swift.Hashable {}
+extension JWPlayerTVKit.JWVisibilityState : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWControlType : Swift.Equatable {}
+extension JWPlayerTVKit.JWControlType : Swift.Hashable {}
+extension JWPlayerTVKit.JWControlType : Swift.RawRepresentable {}
+extension JWPlayerTVKit.JWAdShownOnSeek : Swift.Equatable {}
+extension JWPlayerTVKit.JWAdShownOnSeek : Swift.Hashable {}
+extension JWPlayerTVKit.JWAdShownOnSeek : Swift.RawRepresentable {}

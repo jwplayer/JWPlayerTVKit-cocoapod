@@ -2,7 +2,7 @@
 JW Player SDK for tvOS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Document version: 10/13/2022
+Document version: 10/19/2022
 SDK version: 1.0.0
 
 Getting support and submitting feedback

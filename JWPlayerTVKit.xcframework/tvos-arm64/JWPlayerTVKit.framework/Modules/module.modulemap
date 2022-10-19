@@ -1,0 +1,11 @@
+framework module JWPlayerTVKit {
+  umbrella header "JWPlayerTVKit.h"
+
+  export *
+  module * { export * }
+}
+
+module JWPlayerTVKit.Swift {
+    header "JWPlayerTVKit-Swift.h"
+    requires objc
+}
