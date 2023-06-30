@@ -6,6 +6,6 @@ framework module JWPlayerTVKit {
 }
 
 module JWPlayerTVKit.Swift {
-    header "JWPlayerTVKit-Swift.h"
-    requires objc
+  header "JWPlayerTVKit-Swift.h"
+  requires objc
 }
